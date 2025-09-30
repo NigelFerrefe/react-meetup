@@ -1,29 +1,54 @@
-import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE } from "./../../utils/constants";
-
+import { NavLink } from "react-router-dom";
 import classes from "./MainNavigation.module.css";
+import { useState, useEffect, useRef } from "react";
+import { useFavoriteStore } from "../../store/favorites.store";
 
-export default function MainNavigation({ setPage }) {
+export default function MainNavigation() {
+  const { isFavorite, counter } = useFavoriteStore();
+  const [visible, setVisible] = useState(true);
+  const prevScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > prevScrollY.current) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+
+      prevScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className={classes.header} data-test="navigation-header">
+    <header
+      className={`${classes.header} ${visible ? "" : classes.hidden}`}
+      data-test="navigation-header"
+    >
       <div className={classes.logo}>React Meetups</div>
       <nav>
         <ul>
           <li>
-            <a href="#" onClick={() => setPage(ALL_MEETUP_PAGE)}>
+            <NavLink to="/" exact activeClassName={classes.active}>
               All Meetups
-            </a>
+            </NavLink>
           </li>
-
           <li>
-            <a href="#" onClick={() => setPage(NEW_MEETUP_PAGE)}>
+            <NavLink to="/new-meetup" activeClassName={classes.active}>
               Add New Meetup
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="#" onClick={() => setPage(FAVORITES_PAGE)}>
+            <NavLink to="/favorites" activeClassName={classes.active}>
               My Favorites
-              <span className={classes.badge}>{0}</span>
-            </a>
+              <span className={classes.badge}>{counter()}</span>
+            </NavLink>
           </li>
         </ul>
       </nav>
