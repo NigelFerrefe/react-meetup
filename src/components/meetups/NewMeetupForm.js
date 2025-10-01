@@ -1,9 +1,11 @@
 import { useMeetupStore } from "../../store/meetup.store";
 import Card from "../ui/Card";
 import classes from "./NewMeetupForm.module.css";
-
+import { showSuccessToast, showErrorToast } from "../../utils/toast/toasts";
+import { useNavigate } from "react-router-dom";
 export default function NewMeetupForm() {
   const { addMeetup } = useMeetupStore();
+  const navigate = useNavigate();
 
   function submitHandler(event) {
     event.preventDefault();
@@ -17,9 +19,15 @@ export default function NewMeetupForm() {
       description: formData.get("description"),
     };
 
-    addMeetup(newMeetup);
+    try {
+      addMeetup(newMeetup);
+      showSuccessToast("Meetup added successfully!");
+      event.target.reset();
+      navigate("/");
+    } catch (error) {
+      showErrorToast("Something went wrong...");
+    }
     console.log(newMeetup);
-    event.target.reset();
   }
 
   return (

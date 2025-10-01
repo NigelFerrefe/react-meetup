@@ -1,32 +1,22 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AllMeetupsPage from "./pages/AllMeetupsPage";
 import FavoritesPage from "./pages/Favorites";
 import NewMeetupsPage from "./pages/NewMeetup";
-import MainNavigation from "./components/layout/MainNavigation";
-import Layout from "./components/layout/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-
-
   return (
-    <Router>
-      <div data-test="app">
-        <MainNavigation />
-        <Layout>
-          <Switch>
-            <Route path="/" exact>
-              <AllMeetupsPage />
-            </Route>
-            <Route path="/new-meetup">
-              <NewMeetupsPage />
-            </Route>
-            <Route path="/favorites">
-              <FavoritesPage />
-            </Route>
-          </Switch>
-        </Layout>
-      </div>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<AllMeetupsPage />} />
+          <Route path="/new-meetup" element={<NewMeetupsPage />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </>
   );
 }
 

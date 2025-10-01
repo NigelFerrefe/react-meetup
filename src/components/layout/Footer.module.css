@@ -1,0 +1,33 @@
+/* Footer.module.css */
+.footer {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  background-color: #77002e;
+}
+
+.footer a:hover {
+  transform: scale(1.1);
+  text-decoration: underline;
+  cursor: pointer;
+
+}
+
+.footer a,
+.footer p {
+  font-size: 14px;
+  color: #fcb8d2;
+}
+
+@media (min-width: 650px) {
+  .footer {
+    justify-content: space-around;
+  }
+  .footer a,
+  .footer p {
+    font-size: 16px;
+  }
+}

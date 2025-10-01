@@ -8,8 +8,9 @@ This is a simple meetup management application built with React. Users can view 
 
 - **React Router DOM**: Handles client-side routing and URL management.
 - **Zustand**: State management library used for global stores with localStorage persistence.
-- **React Testing Library**: Used for unit and functional testing of components.
+- **Cypress**: Used for end-to-end testing to validate complete user flows in the browser.
 - **CSS Modules**: For component-scoped and responsive styling.
+- **React Helmet Async**: Used to dynamically manage `<title>`, `<meta>` description, and `<link>`  tags to improve SEO.
 
 ## Brief Explanation of the Implemented Solution
 
@@ -28,11 +29,14 @@ The header includes an animation to provide quick access to different pages whil
 **React Router DOM:**  
 Navigation between pages is implemented with React Router DOM, ensuring that routes are always reflected in the URL for SEO purposes. For example, the favorites page is accessible via `/favorites`.
 
+**React Helmet Async and SEO:**  
+For SEO, each page uses `react-helmet-async` to dynamically update the page title, meta description, and canonical link. The `<title>` tells search engines the main topic of the page, `<meta name="description">` helps create a concise and relevant snippet in search results, and `<link rel="canonical">` prevents duplicate content issues by pointing to the preferred URL.
+
 **Toggle Favorites:**  
 The logic to add and remove meetups from favorites is handled through the Zustand store, enabling a simple and consistent toggle functionality throughout the app.
 
-**Testing with React Testing Library:**  
-The application includes unit and functional tests using React Testing Library to ensure components and user interactions function correctly.
+**End-to-End Testing with Cypress:**  
+The app also includes E2E tests with Cypress to validate full user flows. For example, a test simulates visiting the home page, creating a new meetup via the form, adding it to favorites, and verifying it appears on the “My Favorites” page. This ensures that all critical interactions work as expected in the browser environment.
 
 ## Installation and Running
 
